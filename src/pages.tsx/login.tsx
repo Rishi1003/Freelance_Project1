@@ -62,7 +62,8 @@ export default function LoginPage() {
                         </a>
                     </div>
                     <Button
-                        type="submit"
+                        // type="submit"
+                        onClick={() => { window.location.href = "/" }}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
                     >
                         Sign In
