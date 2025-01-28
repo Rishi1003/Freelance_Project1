@@ -17,7 +17,7 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
             <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-md transition-all duration-300 hover:shadow-2xl">
-                <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Welcome Back</h2>
+                <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Login</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="space-y-2">
                         <Label htmlFor="email" className="text-sm font-medium text-gray-700">
