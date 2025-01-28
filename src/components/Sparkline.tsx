@@ -50,7 +50,7 @@ const Sparkline: React.FC<SparklineProps> = ({ data }) => {
   };
 
   return (
-    <div className="h-8 w-24">
+    <div className="h-9 w-56">
       <Line data={chartData} options={options} />
     </div>
   );
