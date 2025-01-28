@@ -248,22 +248,22 @@ const ForecastingTable: React.FC<ForecastingTableProps> = ({ materials }) => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {material.materialId}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {material.description}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {material.monthYear}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {formatNumber(material.forecastingNextMonth)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {/* {formatNumber(material.nextThreeMonths)} */}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {formatNumber(material.threeMonthsAvg)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {/* {formatNumber(material.proposedQuantity)} */}
                             </td>
                         </tr>

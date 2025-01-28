@@ -312,7 +312,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({ materials }) => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {material.materialId}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                   {material.description}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -327,7 +327,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({ materials }) => {
                 <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                   {/* {material.supplier} */}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                   <button
                     onClick={() => toggleExpand(material.materialId)}
                     className="text-rose-600 hover:text-rose-800 flex items-center gap-1"
@@ -362,10 +362,10 @@ const MaterialTable: React.FC<MaterialTableProps> = ({ materials }) => {
                         <tbody className="bg-white divide-y divide-gray-200">
                           {material.consumption.map((data, index) => (
                             <tr key={index} className="hover:bg-rose-50">
-                              <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-700">
+                              <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {data.monthYear}
                               </td>
-                              <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-700">
+                              <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-800">
                                 {formatNumber(data.consumption)}
                               </td>
                               <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
