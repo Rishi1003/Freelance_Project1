@@ -205,6 +205,8 @@ import ForecastingTable from '../components/ForecastingTable';
 import { Link } from 'react-router';
 import Copyrights from '@/components/Copyrights';
 
+const backendurl = import.meta.env.VITE_BACKEND
+
 function Dashboard() {
   const { materialCData, forecastData, materialGRN, setMaterialCData, setForecastData, setMaterialGRN } = useAppContext();
 
@@ -239,24 +241,27 @@ function Dashboard() {
       setIsLoading(true);
 
 
-      const { data: data1 } = await axios.get('http://localhost:5000/consumption-table', {
-        params: { page: currentPageConsumption, itemsPerPage: entriesPerPageConsumption }
+      const { data: data1 } = await axios.get(`${backendurl}/consumption-table`, {
+        params: { page: currentPageConsumption, itemsPerPage: entriesPerPageConsumption },
+        headers: { "ngrok-skip-browser-warning": "true" }
       });
       setMaterialCData(data1.data);
       setTotalItemsConsumption(data1.totalItems);
       setTotalPagesConsumption(data1.totalPages);
 
 
-      const { data: data2 } = await axios.get('http://localhost:5000/forecast-table', {
-        params: { page: currentPageForecast, itemsPerPage: entriesPerPageForecast }
+      const { data: data2 } = await axios.get(`${backendurl}/forecast-table`, {
+        params: { page: currentPageForecast, itemsPerPage: entriesPerPageForecast },
+        headers: { "ngrok-skip-browser-warning": "true" }
       });
       setTotalItemsForecast(data2.totalItems);
       setTotalPagesForecast(data2.totalPages);
       setForecastData(data2.data);
 
 
-      const { data: data3 } = await axios.get(`http://localhost:5000/material-summary`, {
-        params: { page: currentPageMaterial, itemsPerPage: entriesPerPageMaterial }
+      const { data: data3 } = await axios.get(`${backendurl}/material-summary`, {
+        params: { page: currentPageMaterial, itemsPerPage: entriesPerPageMaterial },
+        headers: { "ngrok-skip-browser-warning": "true" }
       });
       setTotalItemsMaterial(data3.totalItems);
       setTotalPagesMaterial(data3.totalPages);

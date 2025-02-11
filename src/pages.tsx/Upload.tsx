@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import { useAppContext } from '@/AppContext';
 import { useNavigate } from 'react-router';
 
+const backendurl = import.meta.env.VITE_BACKEND
 
 
 const YourComponentWithForecasting = () => {
@@ -23,8 +24,11 @@ const YourComponentWithForecasting = () => {
     const startProcessing = async () => {
         try {
             setIsProcessing(true);
-            const response = await axios.get('http://localhost:5000/upload-data');
+            const response = await axios.get(`${backendurl}/upload-data`, {
+                headers: { "ngrok-skip-browser-warning": "true" }
+            });
             setIsProcessing(false);
+            setIsSuccess(true)
             console.log(response.data);
         } catch (error: any) {
             console.error('Error processing files:', error);
