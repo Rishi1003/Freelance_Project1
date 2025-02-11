@@ -1,18 +1,22 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
+//@ts-nocheck
+
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useAppContext } from "@/AppContext";
 
 export default function LoginPage() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { login } = useAppContext(); // Use authentication context
+    const navigate = useNavigate(); // For navigation
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // Handle login logic here
-        console.log("Login attempted with:", { email, password })
-    }
+        e.preventDefault();
+        login(email, password);
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
@@ -47,38 +51,14 @@ export default function LoginPage() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200"
                         />
                     </div>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <Checkbox id="remember" className="text-blue-600 focus:ring-blue-400" />
-                            <label
-                                htmlFor="remember"
-                                className="ml-2 text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
-                            >
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#" className="text-sm text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                            Forgot password?
-                        </a>
-                    </div>
                     <Button
-                        // type="submit"
-                        onClick={() => { window.location.href = "/" }}
+                        type="submit"
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
                     >
                         Sign In
                     </Button>
                 </form>
-                <div className="mt-8 text-center">
-                    <p className="text-sm text-gray-600">
-                        Don't have an account?
-                        <a href="#" className="ml-1 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
-                            Sign up
-                        </a>
-                    </p>
-                </div>
             </div>
         </div>
-    )
+    );
 }
-

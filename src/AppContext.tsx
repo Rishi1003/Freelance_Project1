@@ -1,4 +1,7 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+//@ts-nocheck
+import Cookies from "js-cookie";
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
+import { useNavigate } from "react-router";
 
 // Define the types for your context's values
 interface AppContextType {
@@ -19,6 +22,37 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [forecastData, setForecastData] = useState<any>(null);
     const [materialCData, setMaterialCData] = useState<any>(null);
 
+    const [user, setUser] = useState(() => {
+        const storedUser = Cookies.get("authUser");
+        if (storedUser) {
+            return (JSON.parse(storedUser));
+        }
+        else {
+            return null;
+        }
+    });
+    const navigate = useNavigate();
+
+    const login = (username, password) => {
+        if (username === "invop@luminaisystems.com" && password === "LuminAISystems@#9090") {
+            setUser({ username });
+
+            // Set a cookie that expires in 1 hour
+            Cookies.set("authUser", JSON.stringify({ username }), { expires: 1, secure: true, sameSite: "Strict" });
+
+            navigate("/"); // Redirect after login
+        } else {
+            alert("Invalid credentials");
+        }
+    };
+
+
+    const logout = () => {
+        setUser(null);
+        Cookies.remove("authUser"); // Remove cookie on logout
+        navigate("/login");
+    };
+
     return (
         <AppContext.Provider
             value={{
@@ -28,6 +62,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
                 setMaterialGRN,
                 setForecastData,
                 setMaterialCData,
+
+                user,
+                login,
+                logout,
             }}
         >
             {children}
