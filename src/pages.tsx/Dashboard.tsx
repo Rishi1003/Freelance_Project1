@@ -286,6 +286,19 @@ function Dashboard() {
   }, [currentPageMaterial, entriesPerPageMaterial, currentPageForecast, entriesPerPageForecast, currentPageConsumption, entriesPerPageConsumption]);
 
 
+  const handleDownloadAll = async () => {
+    const endpoints = [
+      "consumption-table/download",
+      "forecast-table/download",
+      "material-summary/download"
+    ];
+
+    endpoints.forEach(endpoint => {
+      window.open(`${backendurl}/${endpoint}`, "_blank");
+    });
+  };
+
+
 
   if (isLoading) {
     return (
@@ -355,6 +368,18 @@ function Dashboard() {
             <MaterialTable tableVisible={tableVisibleMaterial} setTableVisible={setTableVisibleMaterial} fetchData={fetchData} totalItemsMaterial={totalItemsMaterial} materials={materialGRN} currentPage={currentPageMaterial} setCurrentPage={setCurrentPageMaterial} entriesPerPage={entriesPerPageMaterial} setEntriesPerPage={setEntriesPerPageMaterial} totalPages={totalPagesMaterial} />
           </div>
         </div>
+
+        <div className="mt-8">
+          <div className="rounded-xl bg-rose-300 p-6 shadow-lg">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">Download All</h3>
+            <div className="flex justify-center">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleDownloadAll}>
+                Download All
+              </button>
+            </div>
+          </div>
+        </div>
+
 
         <Copyrights />
       </main>
