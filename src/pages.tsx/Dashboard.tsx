@@ -293,9 +293,24 @@ function Dashboard() {
       "material-summary/download"
     ];
 
-    endpoints.forEach(endpoint => {
-      window.open(`${backendurl}/${endpoint}`, "_blank");
-    });
+    for (const endpoint of endpoints) {
+      try {
+        const response = await axios.get(`${backendurl}/${endpoint}`, {
+          headers: { "ngrok-skip-browser-warning": "true" },
+          responseType: "blob",
+        });
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", endpoint.split("/").pop() + ".xlsx");
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      } catch (error) {
+        console.error("Download failed for", endpoint, error);
+      }
+    }
   };
 
 
@@ -371,10 +386,10 @@ function Dashboard() {
 
         <div className="mt-8">
           <div className="rounded-xl bg-rose-300 p-6 shadow-lg">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Download All</h3>
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">Download All Tables</h3>
             <div className="flex justify-center">
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleDownloadAll}>
-                Download All
+                Download
               </button>
             </div>
           </div>
