@@ -286,33 +286,24 @@ function Dashboard() {
   }, [currentPageMaterial, entriesPerPageMaterial, currentPageForecast, entriesPerPageForecast, currentPageConsumption, entriesPerPageConsumption]);
 
 
-  const handleDownloadAll = async () => {
-    const endpoints = [
-      "consumption-table/download",
-      "forecast-table/download",
-      "material-summary/download"
-    ];
+  const downloadFile = async (endpoint, filename) => {
+    try {
+      const response = await axios.get(`${backendurl}/${endpoint}`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
+        responseType: "blob",
+      });
 
-    for (const endpoint of endpoints) {
-      try {
-        const response = await axios.get(`${backendurl}/${endpoint}`, {
-          headers: { "ngrok-skip-browser-warning": "true" },
-          responseType: "blob",
-        });
-
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", endpoint.split("/").pop() + ".xlsx");
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      } catch (error) {
-        console.error("Download failed for", endpoint, error);
-      }
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${filename}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Download failed for", endpoint, error);
     }
   };
-
 
 
   if (isLoading) {
@@ -365,33 +356,31 @@ function Dashboard() {
 
         <div className="mt-8">
           <div className="rounded-xl bg-orange-300 p-6 shadow-lg">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Material Consumption</h3>
+            <div className='flex justify-between'>
+              <h3 className="mb-4 text-lg font-semibold text-gray-800">Material Consumption</h3>
+              <button className='bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg' onClick={() => downloadFile("consumption-table/download", "consumption-table")}>Download</button>
+            </div>
             <ConsumptionTable tableVisible={tableVisibleConsumption} setTableVisible={setTableVisibleConsumption} products={materialCData} totalItemsConsumption={totalItemsConsumption} currentPage={currentPageConsumption} setCurrentPage={setCurrentPageConsumption} entriesPerPage={entriesPerPageConsumption} setEntriesPerPage={setEntriesPerPageConsumption} totalPages={totalPagesConsumption} />
           </div>
         </div>
 
         <div className="mt-8">
           <div className="rounded-xl bg-purple-300 p-6 shadow-lg">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800 capitalize">Forecasting of material</h3>
+            <div className='flex justify-between'>
+              <h3 className="mb-4 text-lg font-semibold text-gray-800 capitalize">Forecasting of material</h3>
+              <button className='bg-purple-500 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg' onClick={() => downloadFile("forecast-table/download", "forecast-table")}>Download</button>
+            </div>
             <ForecastingTable tableVisible={tableVisibleForecast} setTableVisible={setTableVisibleForecast} materials={forecastData} totalItemsForecast={totalItemsForecast} currentPage={currentPageForecast} setCurrentPage={setCurrentPageForecast} entriesPerPage={entriesPerPageForecast} setEntriesPerPage={setEntriesPerPageForecast} totalPages={totalPagesForecast} />
           </div>
         </div>
 
         <div className="mt-8">
           <div className="rounded-xl bg-rose-300 p-6 shadow-lg">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Material Consumption & GRN</h3>
-            <MaterialTable tableVisible={tableVisibleMaterial} setTableVisible={setTableVisibleMaterial} fetchData={fetchData} totalItemsMaterial={totalItemsMaterial} materials={materialGRN} currentPage={currentPageMaterial} setCurrentPage={setCurrentPageMaterial} entriesPerPage={entriesPerPageMaterial} setEntriesPerPage={setEntriesPerPageMaterial} totalPages={totalPagesMaterial} />
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <div className="rounded-xl bg-rose-300 p-6 shadow-lg">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Download All Tables</h3>
-            <div className="flex justify-center">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleDownloadAll}>
-                Download
-              </button>
+            <div className='flex justify-between'>
+              <h3 className="mb-4 text-lg font-semibold text-gray-800">Material Consumption & GRN</h3>
+              <button className='bg-rose-500 hover:bg-rose-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg' onClick={() => downloadFile("material-summary/download", "material-grn-table")}>Download</button>
             </div>
+            <MaterialTable tableVisible={tableVisibleMaterial} setTableVisible={setTableVisibleMaterial} fetchData={fetchData} totalItemsMaterial={totalItemsMaterial} materials={materialGRN} currentPage={currentPageMaterial} setCurrentPage={setCurrentPageMaterial} entriesPerPage={entriesPerPageMaterial} setEntriesPerPage={setEntriesPerPageMaterial} totalPages={totalPagesMaterial} />
           </div>
         </div>
 

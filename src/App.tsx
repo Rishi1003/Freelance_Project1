@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Dashboard from "./pages.tsx/Dashboard";
 import LoginPage from "./pages.tsx/login";
 import { Routes, Route } from "react-router";
