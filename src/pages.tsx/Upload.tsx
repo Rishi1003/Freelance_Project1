@@ -256,7 +256,7 @@ const YourComponentWithForecasting = () => {
         } catch (error: any) {
             setIsProcessing(false);
             console.error('Error uploading files:', error);
-            setErrorMessage(error.response?.data?.error || 'Error uploading files');
+            setErrorMessage(error.response?.data?.message || 'Failed uploading files');
         }
     };
 
@@ -283,7 +283,7 @@ const YourComponentWithForecasting = () => {
             <div className="flex h-screen bg-gradient-to-tl from-white to-[#bfe3fc]">
                 <Sidebar />
                 <div className="w-full flex-1 flex flex-col mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6">
-                    <h2 className="text-4xl font-semibold text-center text-red-600">Error uploading files</h2>
+                    <h2 className="text-4xl font-semibold text-center text-red-600">Error</h2>
                     <p className="text-7xl text-center text-red-600">{errorMessage}</p>
                 </div>
             </div>
